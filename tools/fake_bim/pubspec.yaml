@@ -1,0 +1,17 @@
+name: fake_bim
+description: Streams real BIM protocol frames from the shared simulator over a WebSocket for desk testing.
+version: 0.1.0
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.13.2
+
+dependencies:
+  glance_protocol:
+    path: ../../packages/glance_protocol
+  glance_telemetry:
+    path: ../../packages/glance_telemetry
+
+dev_dependencies:
+  test: ^1.25.6

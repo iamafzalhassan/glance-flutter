@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Glance">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Glance">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <title>Glance</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    html, body { background: #000000; margin: 0; }
+    #loading { height: 28px; left: 50%; position: fixed; top: 50%; transform: translate(-50%, -50%); width: 28px; }
+    #loading i { animation: fade 1s linear infinite; background: #9A9C9D; border-radius: 1.5px; height: 7px; left: 12.5px; position: absolute; top: 0; transform-origin: 1.5px 14px; width: 3px; }
+    @keyframes fade { from { opacity: 1; } to { opacity: 0.15; } }
+  </style>
+</head>
+<body>
+  <div id="loading"></div>
+  <script>
+    const loading = document.getElementById('loading');
+    for (let bar = 0; bar < 12; bar++) {
+      const tick = document.createElement('i');
+      tick.style.transform = `rotate(${bar * 30}deg)`;
+      tick.style.animationDelay = `${(bar - 12) / 12}s`;
+      loading.appendChild(tick);
+    }
+    window.addEventListener('flutter-first-frame', () => loading.remove(), { once: true });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+name: glance_workspace
+description: Glance HMI monorepo root. Resolves all members with one lockfile.
+publish_to: none
+
+environment:
+  sdk: ^3.13.2
+
+workspace:
+  - apps/hmi
+  - packages/glance_protocol
+  - packages/glance_telemetry
+  - packages/glance_maps
+  - packages/night_road
+  - tools/fake_bim

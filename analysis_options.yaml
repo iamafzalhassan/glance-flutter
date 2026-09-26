@@ -1,0 +1,13 @@
+include: package:flutter_lints/flutter.yaml
+
+formatter:
+  page_width: 240
+
+analyzer:
+  exclude:
+    - "**/build/**"
+    - "**/.dart_tool/**"
+
+linter:
+  rules:
+    directives_ordering: true

@@ -1,0 +1,18 @@
+name: Yamaha Ray ZR 125 Fi Hybrid
+speed:
+  pulses_per_rev: null
+  wheel_circumference_m: null
+  max_display_kmh: 100
+fuel:
+  low_warning_pct: null
+  calibration_points: []
+signals:
+  eco: true
+  stop_start: true
+  left_indicator: true
+  right_indicator: true
+  high_beam: true
+  fi_warning: true
+  side_stand: true
+electrical:
+  battery_low_mv: 11800

@@ -1,0 +1,11 @@
+name: glance_protocol
+description: BIM to HMI wire protocol. Frames, parser, CRC and models. Pure Dart.
+version: 0.1.0
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.13.2
+
+dev_dependencies:
+  test: ^1.25.6

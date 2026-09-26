@@ -1,0 +1,131 @@
+{
+  "crc": {
+    "check": "313233343536373839",
+    "value": 10673
+  },
+  "frames": [
+    {
+      "name": "telemetryCruise",
+      "type": "telemetry",
+      "sequence": 1,
+      "timestampMs": 1000,
+      "fields": {
+        "speedKmhX10": 423,
+        "odometerM": 18420000,
+        "tripAM": 36400,
+        "tripBM": 1200,
+        "fuelPercentX10": 620,
+        "fuelRawMv": 1450,
+        "flags": 3075
+      },
+      "bytes": "AA5501010100E80300001400A70120111901308E0000B00400006C02AA05030C432E"
+    },
+    {
+      "name": "telemetryAutoStop",
+      "type": "telemetry",
+      "sequence": 65535,
+      "timestampMs": 4294967295,
+      "fields": {
+        "speedKmhX10": 0,
+        "odometerM": 4294967295,
+        "tripAM": 0,
+        "tripBM": 0,
+        "fuelPercentX10": 1000,
+        "fuelRawMv": 65535,
+        "flags": 4095
+      },
+      "bytes": "AA550101FFFFFFFFFFFF14000000FFFFFFFF0000000000000000E803FFFFFF0F398B"
+    },
+    {
+      "name": "status",
+      "type": "status",
+      "sequence": 2,
+      "timestampMs": 1000,
+      "fields": {
+        "bikeMv": 12650,
+        "firmwareVersion": 66051,
+        "signalHealth": 3
+      },
+      "bytes": "AA5501020200E803000007006A3103020100035989"
+    },
+    {
+      "name": "event",
+      "type": "event",
+      "sequence": 3,
+      "timestampMs": 1500,
+      "fields": {
+        "eventCode": 7,
+        "value": 513
+      },
+      "bytes": "AA5501030300DC05000003000701020026"
+    },
+    {
+      "name": "ack",
+      "type": "ack",
+      "sequence": 4,
+      "timestampMs": 1600,
+      "fields": {
+        "code": 0
+      },
+      "bytes": "AA55017F040040060000010000A47E"
+    },
+    {
+      "name": "setOdometer",
+      "type": "setOdometer",
+      "sequence": 10,
+      "timestampMs": 0,
+      "fields": {
+        "odometerM": 18420000
+      },
+      "bytes": "AA5501100A00000000000400201119018B35"
+    },
+    {
+      "name": "resetTrip",
+      "type": "resetTrip",
+      "sequence": 11,
+      "timestampMs": 0,
+      "fields": {
+        "tripId": 1
+      },
+      "bytes": "AA5501110B00000000000100013FD4"
+    },
+    {
+      "name": "setWheelCalibration",
+      "type": "setWheelCalibration",
+      "sequence": 12,
+      "timestampMs": 0,
+      "fields": {
+        "factorX10000": 10125
+      },
+      "bytes": "AA5501120C000000000004008D2700004CB9"
+    },
+    {
+      "name": "saveFuelPoint",
+      "type": "saveFuelPoint",
+      "sequence": 13,
+      "timestampMs": 0,
+      "fields": {
+        "percent": 50
+      },
+      "bytes": "AA5501130D00000000000100320D56"
+    },
+    {
+      "name": "requestRawSignals",
+      "type": "requestRawSignals",
+      "sequence": 14,
+      "timestampMs": 0,
+      "fields": {
+        "enabled": true
+      },
+      "bytes": "AA5501140E00000000000100018361"
+    },
+    {
+      "name": "ping",
+      "type": "ping",
+      "sequence": 15,
+      "timestampMs": 0,
+      "fields": {},
+      "bytes": "AA5501150F000000000000008C73"
+    }
+  ]
+}
