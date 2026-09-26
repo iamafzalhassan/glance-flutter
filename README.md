@@ -3,7 +3,7 @@
 ![Flutter](https://img.shields.io/badge/Flutter-3.47-02569B?logo=flutter&logoColor=white)
 ![Riverpod](https://img.shields.io/badge/Riverpod-3-00A6A6)
 ![ESP32-S3](https://img.shields.io/badge/hardware-ESP32--S3-E7352C?logo=espressif&logoColor=white)
-![Platforms](https://img.shields.io/badge/platforms-Android%20tablet%20%7C%20Web-3DDC84?logo=android&logoColor=white)
+![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20Web-3DDC84?logo=android&logoColor=white)
 
 A custom digital dashboard (HMI) for a **Yamaha Ray ZR 125 Fi Hybrid** scooter, built with Flutter.
 
