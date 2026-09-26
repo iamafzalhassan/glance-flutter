@@ -1,5 +1,10 @@
 # Glance
 
+![Flutter](https://img.shields.io/badge/Flutter-3.47-02569B?logo=flutter&logoColor=white)
+![Riverpod](https://img.shields.io/badge/Riverpod-3-00A6A6)
+![ESP32-S3](https://img.shields.io/badge/hardware-ESP32--S3-E7352C?logo=espressif&logoColor=white)
+![Platforms](https://img.shields.io/badge/platforms-Android%20tablet%20%7C%20Web-3DDC84?logo=android&logoColor=white)
+
 A custom digital dashboard (HMI) for a **Yamaha Ray ZR 125 Fi Hybrid** scooter, built with Flutter.
 
 Glance reads speed, odometer, fuel, Eco, Stop & Start and the tell-tales straight from the bike's own wires through a small ESP32-S3 box, the **Bike Interface Module (BIM)**. It shows them on an Android tablet next to Google Maps navigation, and it is designed so the rider understands the whole screen in one glance.
@@ -201,11 +206,11 @@ Flags: bit 0 ignition, 1 Eco, 2 Stop & Start enabled, 3 engine auto stopped, 4 l
 - **Map:** the next turn with ETA and a stop button top-left while navigating; otherwise a dismissible notice there (battery low, service due). Parked-only Settings and place search buttons top-right. Nothing sits bottom-left, so Google's logo and terms stay clear.
 - **Critical alert:** covers the screen for low fuel or engine warning. The "No bike signal" banner floats under the status bar.
 - **Settings** (parked only):
-  - Display: theme (auto, day, night), brightness floor, reduce motion, speed alert.
-  - Odometer and trips: set odometer, Trip A and Trip B with reset, next service.
-  - Calibration: wheel (ride exactly 1.000 km and enter what Glance showed), fuel (save each level while filling up).
-  - Signal test: every input, fuel sender mV, bike voltage, frame rate, delay, discarded and out-of-order frames, speed spikes, firmware version.
-  - About: version, exit kiosk mode.
+    - Display: theme (auto, day, night), brightness floor, reduce motion, speed alert.
+    - Odometer and trips: set odometer, Trip A and Trip B with reset, next service.
+    - Calibration: wheel (ride exactly 1.000 km and enter what Glance showed), fuel (save each level while filling up).
+    - Signal test: every input, fuel sender mV, bike voltage, frame rate, delay, discarded and out-of-order frames, speed spikes, firmware version.
+    - About: version, exit kiosk mode.
 - **Trip summary** at ignition off: distance, ride time, average and top speed.
 - **Parked:** dimmed, with time and date.
 - **Boot:** the Glance logo fades in once.
