@@ -12,6 +12,3 @@ dependencies:
     path: ../../packages/glance_protocol
   glance_telemetry:
     path: ../../packages/glance_telemetry
-
-dev_dependencies:
-  test: ^1.25.6

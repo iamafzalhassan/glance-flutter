@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clock/clock.dart';
 import 'package:flutter/widgets.dart';
 
 import '../format/glance_format.dart';
@@ -18,12 +19,12 @@ class ClockText extends StatefulWidget {
 class _ClockTextState extends State<ClockText> {
   static const Duration refresh = Duration(seconds: 1);
 
-  DateTime _now = DateTime.now();
+  DateTime _now = clock.now();
 
   Timer? _timer;
 
   void _tick() {
-    final now = DateTime.now();
+    final now = clock.now();
     if (now.minute == _now.minute && now.hour == _now.hour) return;
     setState(() => _now = now);
   }

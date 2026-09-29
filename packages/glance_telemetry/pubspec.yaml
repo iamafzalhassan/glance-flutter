@@ -1,5 +1,5 @@
 name: glance_telemetry
-description: TelemetrySource interface, simulator, replay and WebSocket sources, and the freshness rules. Pure Dart.
+description: TelemetrySource interface, simulator and WebSocket sources, and the freshness rules. Pure Dart.
 version: 0.1.0
 publish_to: none
 resolution: workspace

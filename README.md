@@ -3,7 +3,8 @@
 ![Flutter](https://img.shields.io/badge/Flutter-3.47-02569B?logo=flutter&logoColor=white)
 ![Riverpod](https://img.shields.io/badge/Riverpod-3-00A6A6)
 ![ESP32-S3](https://img.shields.io/badge/hardware-ESP32--S3-E7352C?logo=espressif&logoColor=white)
-![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20Web-3DDC84?logo=android&logoColor=white)
+![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20Web%20%7C%20Windows%20%7C%20Linux-3DDC84?logo=android&logoColor=white)
+[![CI](https://github.com/iamafzalhassan/glance-flutter/actions/workflows/ci.yml/badge.svg)](https://github.com/iamafzalhassan/glance-flutter/actions/workflows/ci.yml)
 
 A custom digital dashboard (HMI) for a **Yamaha Ray ZR 125 Fi Hybrid** scooter, built with Flutter.
 
@@ -103,7 +104,7 @@ Glance has three parts:
 | Vehicle profile | YAML read with `yaml` |
 | Android | Kotlin: device owner kiosk, boot receiver, light sensor, thermal status, location, brightness |
 | Firmware (Phase 3) | C++ with PlatformIO, Arduino framework on ESP-IDF, FreeRTOS, on an ESP32-S3 |
-| Protocol | Written by hand in Dart and C++, kept in sync by shared byte-level test vectors |
+| Protocol | Written by hand in Dart, and in C++ with the firmware (Phase 3); shared byte-level test vectors, checked by the Dart tests today and ready for the firmware's tests |
 | Testing | `flutter_test`, `test`, golden tests, `integration_test` for frame times |
 
 ## Repository layout
@@ -118,7 +119,7 @@ glance/
     packages/glance_maps/         map views, route geometry, Places and Routes client
     packages/night_road/          design tokens and shared widgets
     tools/fake_bim/               Dart CLI that streams real frames over WebSocket
-    tools/protocol/vectors.json   byte-exact frames checked by the Dart and firmware tests
+    tools/protocol/vectors.json   byte-exact frames checked by the Dart tests, ready for the firmware tests
 ```
 
 Coming in Phase 3: `packages/glance_serial/`, `firmware/bim/`, `hardware/`, `tools/ride_recorder/`.
@@ -177,7 +178,7 @@ Flags: bit 0 ignition, 1 Eco, 2 Stop & Start enabled, 3 engine auto stopped, 4 l
 | `0x14` | Request raw signals | on / off (u8) |
 | `0x15` | Ping | none |
 
-`tools/protocol/vectors.json` holds byte-exact frames that both the Dart and the C++ tests decode and encode, so the two sides can never drift apart.
+`tools/protocol/vectors.json` holds byte-exact frames that the Dart tests decode and encode. The vectors are ready for the firmware's C++ tests, planned for Phase 3, so the two sides can never drift apart.
 
 ### Data accuracy and freshness
 
@@ -307,7 +308,7 @@ True black, one huge calm numeral, very little colour, blue reserved for navigat
 ### Performance targets
 
 - Steady 60 fps on the dashboard, 16 ms frame budget.
-- `RepaintBoundary` around the map, the speed gauge and every gauge; gauges are custom painters.
+- `RepaintBoundary` around the speed gauge, the fuel gauge and the schematic map (the Google map has none); gauges are custom painters.
 - Cold boot to dashboard in under 15 s on the tablet.
 
 ## Installation
@@ -366,7 +367,7 @@ Then from `apps/hmi`:
 flutter run -d chrome --dart-define=SOURCE=websocket
 ```
 
-To feed a tablet over Wi-Fi, add `--lan` to the fake BIM and `--dart-define=BIM_WS_URL=ws://<pc-ip>:8787` to the app (debug and profile builds only).
+To feed a tablet over Wi-Fi, add `--lan` to the fake BIM and `--dart-define=BIM_WS_URL=ws://<pc-ip>:8787` to the app. On Android only debug and profile builds can use a plain `ws://` address, because only their manifests allow cleartext traffic; a release build blocks it. Nothing in the Dart code checks the build mode.
 
 | `SOURCE` | Telemetry |
 |---|---|
@@ -388,6 +389,8 @@ To feed a tablet over Wi-Fi, add `--lan` to the fake BIM and `--dart-define=BIM_
    Glance becomes the home app, starts after reboot, hides the system bars, disables the lock screen and keeps the screen on while charging.
 4. To leave kiosk mode: Settings, About, Exit kiosk mode (parked only). The only other way out is a factory reset. Leaving also removes Glance as device owner, so run the `dpm set-device-owner` command again to return to kiosk mode.
 
+Release builds are signed with the debug key (`signingConfigs.getByName("debug")` in `apps/hmi/android/app/build.gradle.kts`). No release keystore is configured, so a release APK is fit for your own tablet, not for distribution.
+
 ## Testing
 
 | Package | Command |
@@ -399,11 +402,13 @@ To feed a tablet over Wi-Fi, add `--lan` to the fake BIM and `--dart-define=BIM_
 
 Unit tests cover the critical flows: protocol parsing, CRC, sequence checks, freshness timers, spike rejection, the simulator, fuel range, battery watch, brightness, heat and theme policies, route geometry, rerouting, arrival and the speed gauge layout.
 
-After a visual change, refresh the golden images from `apps/hmi` and check them by eye:
+The golden baselines live in `apps/hmi/test/features/hmi/goldens/`. They are rendered on Windows, with the clock fixed so the time on screen never changes, and CI runs on Windows too; another OS can render text a few pixels differently. After a visual change, refresh them on Windows from `apps/hmi` and check them by eye:
 
 ```bash
 flutter test --update-goldens test/features/hmi/hmi_root_golden_test.dart
 ```
+
+CI (GitHub Actions, `.github/workflows/ci.yml`) runs `flutter analyze` and the tests above, goldens included, when started manually from the Actions tab. The frame-time test below needs a device, so CI does not run it.
 
 Frame times on a real tablet, from `apps/hmi`:
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glance_maps/glance_maps.dart';
 
@@ -18,7 +19,7 @@ final navigationProvider = Provider<NavigationState?>((ref) {
   final session = ref.watch(navigationSessionProvider);
   if (session == null) return null;
   final travelledM = session.travelledM(ref.watch(riderLocationProvider).value?.position, ref.watch(telemetryProvider.select((snapshot) => snapshot.odometerM.value)));
-  return travelledM == null ? null : session.route.stateAt(travelledM, DateTime.now(), _assumedAverageKmh);
+  return travelledM == null ? null : session.route.stateAt(travelledM, clock.now(), _assumedAverageKmh);
 });
 
 final class NavigationSession {

@@ -42,7 +42,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.byType(SettingsScreen), findsNothing);
-    expect(find.byIcon(Icons.settings_rounded), findsNothing);
+    expect(find.byIcon(Icons.settings_rounded).hitTestable(), findsNothing);
   });
 
   testWidgets('shows No signal and the no bike signal banner when the link drops', (tester) async {

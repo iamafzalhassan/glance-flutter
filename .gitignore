@@ -15,6 +15,8 @@
 build/
 **/doc/api/
 migrate_working_dir/
+**/linux/flutter/ephemeral/
+**/windows/flutter/ephemeral/
 
 # Android
 **/android/.gradle/
@@ -24,6 +26,7 @@ migrate_working_dir/
 **/android/app/debug
 **/android/app/profile
 **/android/app/release
+**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 *.jks
 *.keystore
 

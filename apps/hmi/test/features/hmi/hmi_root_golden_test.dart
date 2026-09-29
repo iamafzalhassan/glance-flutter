@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:glance/core/settings/glance_settings.dart';
@@ -12,6 +13,7 @@ import '../../helpers/pump_hmi.dart';
 void main() {
   const sizes = [Size(1024, 600), Size(1280, 800)];
   const themes = [ThemePreference.night, ThemePreference.day];
+  final goldenTime = DateTime(2026, 9, 24, 9, 41);
 
   setUpAll(() async {
     final sfPro = FontLoader('packages/night_road/SFProDisplay')
@@ -27,14 +29,17 @@ void main() {
     for (final theme in themes) {
       for (final navigating in [false, true]) {
         final name = 'hmi_${navigating ? 'navigating' : 'dashboard'}_${theme.name}_${size.width.round()}x${size.height.round()}';
-        testWidgets(name, (tester) async {
-          tester.view.physicalSize = size;
-          tester.view.devicePixelRatio = 1;
-          addTearDown(tester.view.reset);
-          final telemetry = FakeTelemetryNotifier(snapshotWith(flags: const {TelemetryFlag.ignition, TelemetryFlag.eco, TelemetryFlag.stopStartEnabled, TelemetryFlag.left}));
-          await pumpHmi(tester, overrides: [if (navigating) navigationSessionProvider.overrideWith(_GoldenNavigation.new)], telemetry: telemetry, theme: theme);
-          await expectLater(find.byType(HmiRoot), matchesGoldenFile('goldens/$name.png'));
-        });
+        testWidgets(
+          name,
+          (tester) => withClock(Clock.fixed(goldenTime), () async {
+            tester.view.physicalSize = size;
+            tester.view.devicePixelRatio = 1;
+            addTearDown(tester.view.reset);
+            final telemetry = FakeTelemetryNotifier(snapshotWith(flags: const {TelemetryFlag.ignition, TelemetryFlag.eco, TelemetryFlag.stopStartEnabled, TelemetryFlag.left}));
+            await pumpHmi(tester, overrides: [if (navigating) navigationSessionProvider.overrideWith(_GoldenNavigation.new)], telemetry: telemetry, theme: theme);
+            await expectLater(find.byType(HmiRoot), matchesGoldenFile('goldens/$name.png'));
+          }),
+        );
       }
     }
   }
